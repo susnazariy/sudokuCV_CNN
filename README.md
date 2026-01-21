@@ -17,7 +17,7 @@ A computer vision-based Sudoku solver that extracts puzzles from images and solv
 
 ## 🖼️ Demo
 
-![img.png](img(1)/img.png)
+![img.png](img/img(1).png)
 ![img.png](img/img.png)
 
 ## 🚀 Quick Start
