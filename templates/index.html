@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku CV Solver</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧩 Sudoku CV Solver</h1>
+            <p class="subtitle">Solve Sudoku puzzles from images using Computer Vision & AI</p>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="image-tab">📷 From Image</button>
+                <button class="tab-btn" data-tab="manual-tab">✏️ Manual Input</button>
+            </div>
+
+            <!-- Image Upload Tab -->
+            <div id="image-tab" class="tab-content active">
+                <div class="upload-section">
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="drop-zone-content">
+                            <span class="drop-icon">📁</span>
+                            <p>Drag & drop a Sudoku image here</p>
+                            <p class="or-text">or</p>
+                            <label class="file-input-label">
+                                <input type="file" id="file-input" accept="image/*">
+                                Choose File
+                            </label>
+                        </div>
+                        <img id="preview-image" class="preview-image hidden" alt="Preview">
+                    </div>
+                    
+                    <button id="solve-image-btn" class="btn btn-primary hidden">
+                        🔍 Solve Puzzle
+                    </button>
+                </div>
+
+                <div id="image-result" class="result-section hidden">
+                    <h2>Solution</h2>
+                    <div class="result-container">
+                        <div class="result-images">
+                            <div class="result-image-wrapper">
+                                <h3>Original with Overlay</h3>
+                                <img id="result-image" alt="Solution overlay">
+                            </div>
+                            <div class="result-image-wrapper">
+                                <h3>Clean Grid View</h3>
+                                <img id="warped-result" alt="Warped solution">
+                            </div>
+                        </div>
+                        <div class="result-grids">
+                            <div class="grid-display">
+                                <h3>Detected Puzzle</h3>
+                                <div id="detected-grid" class="sudoku-grid small"></div>
+                            </div>
+                            <div class="grid-display">
+                                <h3>Solution</h3>
+                                <div id="solution-grid" class="sudoku-grid small"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manual Input Tab -->
+            <div id="manual-tab" class="tab-content">
+                <div class="manual-section">
+                    <p class="instructions">Enter numbers 1-9 or leave empty for blank cells. Use arrow keys or Tab to navigate.</p>
+                    
+                    <div id="input-grid" class="sudoku-grid large editable"></div>
+                    
+                    <div class="button-group">
+                        <button id="solve-manual-btn" class="btn btn-primary">🧮 Solve</button>
+                        <button id="clear-btn" class="btn btn-secondary">🗑️ Clear</button>
+                        <button id="sample-btn" class="btn btn-secondary">📋 Load Sample</button>
+                    </div>
+                </div>
+
+                <div id="manual-result" class="result-section hidden">
+                    <h2>Solution</h2>
+                    <div id="manual-solution-grid" class="sudoku-grid large"></div>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div id="loading" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <p>Processing...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message hidden"></div>
+        </main>
+
+        <footer>
+            <p>Built with OpenCV, PyTorch & Flask</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+/* CSS Variables */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #6b7280;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --background: #f9fafb;
+    --surface: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --grid-line: #374151;
+    --grid-line-thick: #111827;
+    --cell-highlight: #dbeafe;
+    --solved-cell: #dcfce7;
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--background);
+}
+
+.button-group {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Upload Section */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.drop-zone {
+    width: 100%;
+    max-width: 500px;
+    min-height: 250px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--primary-color);
+    background: var(--cell-highlight);
+}
+
+.drop-zone-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.drop-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.or-text {
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.file-input-label:hover {
+    background: var(--primary-hover);
+}
+
+#file-input {
+    display: none;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.preview-image.hidden {
+    display: none;
+}
+
+/* Sudoku Grid */
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    border: 3px solid var(--grid-line-thick);
+    background: var(--surface);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.sudoku-grid.large {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.sudoku-grid.small {
+    width: 100%;
+    max-width: 280px;
+}
+
+.sudoku-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    background: var(--surface);
+}
+
+.sudoku-grid.large .sudoku-cell {
+    font-size: 1.8rem;
+}
+
+.sudoku-grid.small .sudoku-cell {
+    font-size: 1.1rem;
+}
+
+/* 3x3 box borders */
+.sudoku-cell:nth-child(3n) {
+    border-right: 2px solid var(--grid-line);
+}
+
+.sudoku-cell:nth-child(9n) {
+    border-right: none;
+}
+
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid var(--grid-line);
+}
+
+/* Input cells */
+.sudoku-cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: inherit;
+    font-weight: inherit;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.sudoku-cell input:focus {
+    outline: none;
+    background: var(--cell-highlight);
+}
+
+.sudoku-cell.original {
+    background: #f3f4f6;
+    color: var(--text-primary);
+}
+
+.sudoku-cell.solved {
+    color: var(--primary-color);
+    background: var(--solved-cell);
+}
+
+/* Manual Input Section */
+.manual-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.instructions {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Result Section */
+.result-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.result-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--success-color);
+}
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.result-images {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.result-image-wrapper {
+    max-width: 100%;
+    text-align: center;
+}
+
+.result-image-wrapper h3 {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.result-image-wrapper img {
+    max-width: 100%;
+    max-height: 350px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.result-grids {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.grid-display {
+    text-align: center;
+}
+
+.grid-display h3 {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Error Message */
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: var(--error-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.error-message.hidden {
+    display: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .result-grids {
+        flex-direction: column;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
